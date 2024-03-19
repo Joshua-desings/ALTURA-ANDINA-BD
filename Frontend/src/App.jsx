@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Welcome from "./components/Welcome";
 import HotelSection from "./components/HotelSection";
 import HotelCarousel from "./components/HotelCarousel";
+import Habitaciones from "./components/Rooms";
 import ReservationBar from "./components/ReservationBar";
 import ServicesSection from "./components/ServicesSection";
 import Testimonials from "./components/Testimonials";
@@ -12,8 +13,9 @@ import ContactForm from "./components/ContactForm";
 import BlogSection from "./components/BlogSection";
 import Footer from "./components/Footer";
 import ScrollToTopButton from "./utils/ScrollToTopButton";
-import { DataProvider } from "./hooks/DataContext";
+import { HabitacionesProvider } from "./hooks/useHabitacionesContext";
 import "./App.css";
+import OnSearch from "./utils/OnSearch";
 
 function App() {
   const transitions = useTransition(true, {
@@ -29,15 +31,12 @@ function App() {
         (styles, item) =>
           item && (
             <animated.div style={styles}>
-              <DataProvider>
-                {" "}
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/habitaciones" element={<HotelCarousel />} />
-                  <Route path="/servicios" element={<ServicesSection />} />
-                  <Route path="/contacto" element={<ContactForm />} />
-                </Routes>
-              </DataProvider>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/habitaciones" element={<Rooms />} />
+                <Route path="/servicios" element={<ServicesSection />} />
+                <Route path="/contacto" element={<ContactForm />} />
+              </Routes>
             </animated.div>
           )
       )}
@@ -54,6 +53,16 @@ const Home = () => (
     <HotelSection />
     <Testimonials />
     <BlogSection />
+  </>
+);
+
+const Rooms = () => (
+  <>
+    <HabitacionesProvider> {/* Agregamos el proveedor de contexto de habitaciones */}
+      <HotelCarousel />
+      <OnSearch />
+      <Habitaciones />
+    </HabitacionesProvider>
   </>
 );
 

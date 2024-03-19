@@ -1,11 +1,13 @@
 import axios from 'axios';
 
-const API_KEY = ""; //Recuerda poner aqui tu propia api key de openweathermap
+const baseURL = 'https://api.openweathermap.org/data/2.5';
+const API_KEY = 'a99361f7196615b485d5f17a506cddca'; // Recuerda colocar tu propia clave API de OpenWeatherMap aquí
 
 const api = axios.create({
-  baseURL: 'https://api.openweathermap.org/data/2.5',
+  baseURL,
 });
 
+// Función para obtener el clima por ciudad
 export const getWeatherByCity = async (city, lang = 'es') => {
   try {
     const response = await api.get(`/weather?q=${city}&appid=${API_KEY}&lang=${lang}`);
